@@ -4,15 +4,13 @@ export default function Calculator() {
     const [first, setFirst] = useState('')
     const [seconds, setSeconds] = useState('')
     const [result, setResult] = useState('')
-    const [error, setError] = useState('') // 오류메세지 저장 상태값
     function v(value) {
         ///^-?\d*\.?\d*$/
         console.log(/^-?\d+(\.\d+)?$/.test(value), value) //정규식.test(값)
-        if (/^-?\d*\.?\d*$/.test(value)) {
+        if (/^-?\d+(\.\d+)?$/.test(value)) {
             return true
         } else {
-            setError('유효하지 않은 입력')
-            setResult('')
+            setResult('유효하지 않은 입력')
             return false
         }
     }
@@ -20,22 +18,37 @@ export default function Calculator() {
     function handleAdd() {
         if (v(first) && v(seconds)) {
             setResult(Number(first) + Number(seconds))
-            setError('')
+        } else {
+            setResult('유효하지 않은 입력')
+            return false
         }
 
     }
     function handleSub() {
-        setResult(Number(first) - Number(seconds))
+        if (v(first) && v(seconds)) {
+            setResult(Number(first) - Number(seconds))
+        } else {
+            setResult('유효하지 않은 입력')
+            return false
+        }
+
     }
     function handleMul() {
-        setResult(Number(first) * Number(seconds))
+        if (v(first) && v(seconds)) {
+            setResult(Number(first) * Number(seconds))
+        } else {
+            setResult('유효하지 않은 입력')
+            return false
+        }
+
     }
     //second가 0 일때 = infinity -> 유효성 검사 필요, first가 0 일때 =0 <- 괜찮음.
     //입력 받는 중에 정규식 검사는 불가함.
     function handleDiv() {
-        if (v(first) && v(seconds) && Number(seconds) !== 0) { setResult(Number(first) / Number(seconds)) } else {
-            setError('유효하지 않은 입력')
-            setResult('')
+        if (v(first) && v(seconds) && Number(seconds) !== 0) {
+            setResult(Number(first) / Number(seconds))
+        } else {
+            setResult('유효하지 않은 입력')
             return false
         }
 
