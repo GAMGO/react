@@ -6,7 +6,12 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   function handleCount(){
+    /*
+    count++ 은 안됨 => 오류남.
+    setCount(count+1) -> 가능하나 비추천 (비동기등 다른 함수들과 사용될 때 문제)
+    */
     setCount((count) => count + 1)
+    // 현재의 count 값을 콜백함수 인자로 받아서 count에 저장 후 증가시켜 리턴.
   }
   return (
     <>
