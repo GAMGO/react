@@ -37,7 +37,7 @@ function App() {
   console.log("todos:", todos);
   const [value, setValue] = useState("");
 
-  function handleChecked(id) {
+  function handleChecked(id) { //상태변수 변경
     // 배열 자체를 바꿔야 상태 변경됩니다.
     // 배열 특정 요소의 checked 값만 변경한 것을 새로운 배열로 하여 todos 변경
     // ! 연산자는 참은 거짓, 거짓은 참으로 변경
@@ -49,7 +49,7 @@ function App() {
   }
 
   // todos  할 일 객체 목록 중 삭제하기
-  function handleRemove(id) {
+  function handleRemove(id) {//상태변수 변경
     // 인자로 전달받은 id값을 갖는 요소 삭제하기
     // 인자 id값이 아닌 요소로만 새로운 배열 만들기
     const newtodos = todos.filter((item) => item.id !== id);
@@ -58,7 +58,7 @@ function App() {
 
   // 🔥 화살표 함수 사용해보기
   // todos 에 할일 객체를 추가
-  const handleInsert = (text) => {
+  const handleInsert = (text) => {//상태변수 변경
     const todo = {
       id: maxid.current,
       text,
@@ -68,12 +68,12 @@ function App() {
     // todos 에 새로운 todo를 추가해서 변경합니다.
     // 배열 요소 추가 push() 는 리턴이 없고 todos 배열에 추가합니다.
     // => todos 배열 자체가 바뀌는 것은 아닙니다.state 변화 없음.
-    setTodos([...todos, todo]);
+    setTodos([...todo, todo]);
     // todos.concat(todo) 과 동일. 새로운 배열로 바꿔서 state 변화. 재렌더링
 
     maxid.current += 1;
   };
-
+// 이벤트 함수
   const handleSubmit = (e) => {
     e.preventDefault(); // form 서버제출 기본 동작을 못하게 막음.
     // 입력값을 할일 목록(배열)에 추가시키는 함수 실행하기
