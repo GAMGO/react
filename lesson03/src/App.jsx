@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./assets/css/TodoInsert.scss";
 import "./assets/css/TodoList.scss";
 import "./assets/css/TodoListItem.scss";
@@ -14,6 +14,8 @@ import TodoInsert from './components/TodoInsert';
 import TodoTemplate from './components/TodoTemplate';
 
 export default function App() {
+  const renderCount = useRef(0);
+  renderCount.current += 1;
   const initVal = [
     {
       id: 1,
@@ -62,12 +64,14 @@ export default function App() {
   };
 
   return (
-    <TodoTemplate>
-      {/* 아래의 컴포넌트들은 TodoTemplate의 children 속성으로 사용할 수 있다. */}
-      <TodoInsert onInsert={handleInsert} todos={todos}></TodoInsert>
-      <TodoList todos={todos} onRemove={handleRemove} onChecked={handleChecked} />
-    </TodoTemplate>
-
+    <div>
+      <TodoTemplate>
+        {/* 아래의 컴포넌트들은 TodoTemplate의 children 속성으로 사용할 수 있다. */}
+        <TodoInsert onInsert={handleInsert} todos={todos}></TodoInsert>
+        <TodoList todos={todos} onRemove={handleRemove} onChecked={handleChecked} />
+      </TodoTemplate>
+      <div>render:{renderCount.current}</div>
+      </div>
   )
 }
 
