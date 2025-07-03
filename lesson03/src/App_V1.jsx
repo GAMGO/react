@@ -1,3 +1,8 @@
+/*
+day03_02 배열 상태값 변경을 GUI로 구현
+=> day03_03 -> components 폴더에서 컴포넌트로 만들어서 리팩토링
+*/
+
 import { useRef, useState } from "react";
 import "./assets/css/TodoInsert.scss";
 import "./assets/css/TodoList.scss";

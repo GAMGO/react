@@ -1,3 +1,8 @@
+/*
+day03_04 컴포넌트 리팩토링해서 사용
+day04_01 children속성 사용하여 완성
+useRef() 훅으로 (App_V1.jsx)과 리렌더링 횟수 비교 
+*/
 import React, { useEffect, useRef, useState } from 'react'
 import "./assets/css/TodoInsert.scss";
 import "./assets/css/TodoList.scss";

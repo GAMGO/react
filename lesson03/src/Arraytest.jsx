@@ -5,7 +5,8 @@ function Arraytest() {
     { id: 2, text: "프로젝트 기획", checked: false, },
     { id: 3, text: "데이터베이스 테스트", checked: false, },
   ]
-
+//day03_01 배열이 state 변수일때 -> 상태 값 변경 함수 테스트
+//여기에서 사용한 JS 문법테스트 : public / es6test 참고
   const [todos, setTodos] = useState(initVal);
   const maxid = useRef(todos.length + 1);
   const [value, setValue] = useState("");
