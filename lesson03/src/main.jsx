@@ -4,9 +4,12 @@ import './index.css'
 import App from './App.jsx'
 import Appv1 from './App_v1'
 import Ar from './Arraytest.jsx'
+import { FocusInput } from './RefTest.jsx'
 
 createRoot(document.getElementById('root')).render(
-
-  <App/>
-  // <Appv1/>
+<StrictMode>
+  <FocusInput/>
+  {/* <App/> */}
+  {/* <Appv1/> */}
+</StrictMode>
 )
