@@ -1,6 +1,17 @@
 import React, { useRef, useState } from 'react'
-
+import "./assets/css/TodoInsert.scss";
+import "./assets/css/TodoList.scss";
+import "./assets/css/TodoListItem.scss";
+import "./assets/css/TodoTemplate.scss";
+import {
+  MdAdd,
+  MdCheckBox,
+  MdCheckBoxOutlineBlank,
+  MdRemoveCircleOutline,
+} from "react-icons/md";
 import TodoList from './components/TodoList';
+import TodoInsert from './components/TodoInsert';
+import TodoTemplate from './components/TodoTemplate';
 
 export default function App() {
   const initVal = [
@@ -38,7 +49,7 @@ export default function App() {
     setTodos(newtodos);
   }
 
-  /*const handleInsert = (text) => {//상태변수 변경
+  const handleInsert = (text) => {//상태변수 변경
     const todo = {
       id: maxid.current,
       text,
@@ -48,10 +59,15 @@ export default function App() {
     setTodos([...todos, todo]);
 
     maxid.current += 1;
-  };*/
+  };
 
   return (
-    <div><TodoList todos={todos} onRemove={handleRemove} onChecked={handleChecked}/></div>
+    <TodoTemplate>
+      {/* 아래의 컴포넌트들은 TodoTemplate의 children 속성으로 사용할 수 있다. */}
+      <TodoInsert onInsert={handleInsert} todos={todos}></TodoInsert>
+      <TodoList todos={todos} onRemove={handleRemove} onChecked={handleChecked} />
+    </TodoTemplate>
+
   )
 }
 
