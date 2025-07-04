@@ -13,6 +13,7 @@ app.use(json()); // Clinet가 보낸 데이터 수신에 필요
 const MONGODB_URI = "mongodb://localhost:27017/";
 const DB_NAME = "react01";
 const COLLECTION_NAME = "lesson04";
+const COLLECTION_NAME2 = "TimeTable";
 
 //db연결
 let db;
@@ -100,3 +101,74 @@ app.delete("/api/todos/:id", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행중.`);
 });
+
+//----------------------------------------------타임테이블용 서버
+app.get("/api/TimeTable", async (req, res) => {
+  try {
+    const timeTable = await db.collection(COLLECTION_NAME2).find({}).toArray();
+    res.json(timeTable);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to request a DATA" });
+  }
+});
+//추가 (벡엔드가 db에 저장)
+app.post("/api/TimeTable", async (req, res) => {
+  try {
+    const { text } = req.body;
+    const maxTime = await db.collection(COLLECTION_NAME2).findOne({}, { sort: { id: -1 } })
+    const newId = maxTime ? maxTime.id + 1 : 1;
+    const newTime = {
+      id: newId,
+      text: text,
+      checked: false,
+      createAt: new Date(),
+    };
+    const result = await db.collection(COLLECTION_NAME2).insertOne(newTime);
+    console.log(result);
+    //https://localhost:5000/api/TimeTable 요청에 대한 응답
+    res.status(201).json({ ...newTime, _id: result.insertedId });
+    //저장 결과에 대한 응답 데이터
+  } catch (error) {
+    res.status(500).json({ error: "Failed to request a server" });
+  }
+});
+app.put("/api/TimeTable/:id", async (req, res) => {
+  try {
+    const todoId = Number(req.params.id);
+    const { checked } = req.body;
+    const result = await db
+      .collection(COLLECTION_NAME2)
+      .updateOne({ id: todoId }, { $set: { checked } });
+    console.log(result);
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "지정된 id를 찾을 수 없음." });
+    }
+    res.json({ message: "Checked 업데이트 완료!!" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to request a server" });
+  }
+});
+
+//지정한 id의 todo삭제
+app.delete("/api/TimeTable/:id", async (req, res) => {
+  try {
+    const todoId = Number(req.params.id);
+    const result = await db
+      .collection(COLLECTION_NAME2)
+      .deleteOne({ id: todoId });
+    console.log(result);
+    if (result.deleteCount === 0) {
+      return res.status(404).json({ error: "지정된 id를 삭제 할 수 없음." });
+    }
+    res.json({ message: "DELETE COMPLETE" });
+  } catch (error) {
+    res.status(500).json({ error: "DELETE FAILED" });
+  }
+});
+
+//백엔드 서버 시작
+app.listen(PORT, () => {
+  console.log(`타임테이블용 서버가 포트 ${PORT}에서 실행중.`);
+});
+
+

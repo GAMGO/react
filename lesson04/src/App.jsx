@@ -17,7 +17,9 @@ import {
 import TodoList from './components/TodoList';
 import TodoInsert from './components/TodoInsert';
 import TodoTemplate from './components/TodoTemplate';
-
+/*
+리엑트 웹서버 <-> 노드J에스[nodeJs] 백엔드(WAS) 서버 <-> Mongodb (데이터베이스 서버)
+*/
 export default function App() {
 
   const API_BASE_URL = "http://localhost:5000/api/todos"
@@ -58,7 +60,7 @@ export default function App() {
       const options = {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ checked: newChecked })//
+        body: JSON.stringify({ checked: newChecked })
       }
       //백엔드 서버 통해서 DB값 변경.
       const response = await fetch(`${API_BASE_URL}/${id}`, options)
@@ -82,7 +84,6 @@ export default function App() {
       const response = await fetch(`${API_BASE_URL}/${id}`, {method: 'DELETE'})
       //options 두번째 인자는 객체 직접 사용 가능.
       if (response.ok) {
-        const newTodo = await response.json()
         const newtodos = todos.filter((item) => item.id !== id);
         setTodos(newtodos);
       } else {
@@ -132,13 +133,7 @@ export default function App() {
       </TodoTemplate>
     </div>
   )
-}
-
-
-
-
-
-
+};
 
 
 
