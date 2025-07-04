@@ -48,7 +48,6 @@ curl -X POST http://localhost:5000/api/todos ^
   -H "Content-Type: application/json" ^
   -d "{\"text\":\"저녁식사\"}"
 
-
 3. 기존 todo데이터의 checked 속성 수정 : put 방식. 단, url로 id 값 지정.
 curl -X PUT http://localhost:5000/api/todos/2 ^
   -H "Content-Type: application/json" ^
