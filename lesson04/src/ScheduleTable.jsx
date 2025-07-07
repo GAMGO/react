@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 // import date from "../../lesson04_svr/TimeTable.json"
 const API_BASE_URL = "http://localhost:5000/api/TimeTable"
 export default function ScheduleTable() {
-  const [schedule, setSchedule] = useState([]);
+  const [schedules, setSchedule] = useState([]);
   const [loading, setLoading] = useState(false); //fetch 실행 중이면 true
   const fetchSch = async () => {
     try {
@@ -25,36 +25,28 @@ export default function ScheduleTable() {
     fetchSch();
   }, []);
   const handleSelected = (idx) => {
-    setSchedule(schedule[idx]);
+    setSchedule(schedules[idx]);
   };
-
   return (
     <div
       className="container"
       style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}
     >
       <div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-        {schedule.map((sch, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSelected(idx)}
-            disabled={schedule.date === sch.date}
+        {schedules.map((sch, idx) => (
+          <button key={idx} onClick={() => handleSelected(idx)} disabled={schedules.date === sch.date}
             style={{
               margin: "0 5px",
               padding: "8px 16px",
-              backgroundColor: schedule.date === sch.date ? "#ccc" : "#007bff",
-              color: schedule.date === sch.date ? "#666" : "white",
+              backgroundColor: schedules.date === sch.date ? "#ccc" : "#007bff",
+              color: schedules.date === sch.date ? "#666" : "white",
               border: "none",
               borderRadius: "4px",
-              cursor: schedule.date === sch.date ? "not-allowed" : "pointer",
-            }}
-          >
-            {sch.date}
-          </button>
-        ))}
+              cursor: schedules.date === sch.date ? "not-allowed" : "pointer",
+            }}>{sch.date}</button>))}
       </div>
       <hr />
-      <h3 style={{ color: "#333", marginBottom: "1rem" }}>{schedule.date}</h3>
+      <h3 style={{ color: "#333", marginBottom: "1rem" }}>{schedules.date}</h3>
       <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
@@ -67,7 +59,7 @@ export default function ScheduleTable() {
             >
               TIME
             </th>
-            {schedule.todos.map((t, idx) => (
+            {schedules.todos.map((t, idx) => (
               <th
                 key={`time-${idx}`}
                 style={{
@@ -93,7 +85,7 @@ export default function ScheduleTable() {
             >
               TODO
             </td>
-            {schedule.todos.map((t, idx) => (
+            {schedules.todos.map((t, idx) => (
               <td
                 key={`todo-${idx}`}
                 style={{ padding: "10px", textAlign: "center" }}
