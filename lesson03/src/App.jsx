@@ -1,26 +1,13 @@
-/*
-day03_04 컴포넌트 리팩토링해서 사용
-day04_01 children속성 사용하여 완성
-useRef() 훅으로 (App_V1.jsx)과 리렌더링 횟수 비교 
-*/
 import React, { useEffect, useRef, useState } from 'react'
 import "./assets/css/TodoInsert.scss";
 import "./assets/css/TodoList.scss";
 import "./assets/css/TodoListItem.scss";
 import "./assets/css/TodoTemplate.scss";
-import {
-  MdAdd,
-  MdCheckBox,
-  MdCheckBoxOutlineBlank,
-  MdRemoveCircleOutline,
-} from "react-icons/md";
+import {MdAdd,MdCheckBox,MdCheckBoxOutlineBlank,MdRemoveCircleOutline} from "react-icons/md";
 import TodoList from './components/TodoList';
 import TodoInsert from './components/TodoInsert';
 import TodoTemplate from './components/TodoTemplate';
-
 export default function App() {
-  const renderCount = useRef(0);
-  renderCount.current += 1;
   const initVal = [
     {
       id: 1,
@@ -40,99 +27,34 @@ export default function App() {
   ];
   const [todos, setTodos] = useState(initVal);
   const maxid = useRef(todos.length + 1);
-  // const [value, setValue] = useState("");
-
-  function handleChecked(id) { //상태변수 변경
+  function handleChecked(id) { 
     const newtodos = todos.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
-    // 상태가 바뀝니다.
     setTodos(newtodos);
   }
-
-  function handleRemove(id) {//상태변수 변경
-
+  function handleRemove(id) {
     const newtodos = todos.filter((item) => item.id !== id);
     setTodos(newtodos);
   }
-
-  const handleInsert = (text) => {//상태변수 변경
+  const handleInsert = (text) => {
     const todo = {
       id: maxid.current,
       text,
       checked: false,
     };
-
     setTodos([...todos, todo]);
-
     maxid.current += 1;
   };
-
+  const [day,setDay]=useState('')
   return (
     <div>
       <TodoTemplate>
-        {/* 아래의 컴포넌트들은 TodoTemplate의 children 속성으로 사용할 수 있다. */}
+        {day}
         <TodoInsert onInsert={handleInsert} todos={todos}></TodoInsert>
         <TodoList todos={todos} onRemove={handleRemove} onChecked={handleChecked} />
       </TodoTemplate>
-      <div>render:{renderCount.current}</div>
-      </div>
+      <input type='date'value={day}onChange={(e)=>setDay(e.target.value)}/>
+    </div>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* import { useState } from 'react'
- import reactLogo from './assets/react.svg'
- import viteLogo from '/vite.svg'
- import './App.css'
-
- function App() {
-   const [count, setCount] = useState(0)
-
-   return (
-     <>
-       <div>
-         <a href="https://vite.dev" target="_blank">
-           <img src={viteLogo} className="logo" alt="Vite logo" />
-         </a>
-         <a href="https://react.dev" target="_blank">
-           <img src={reactLogo} className="logo react" alt="React logo" />
-         </a>
-       </div>
-       <h1>Vite + React</h1>
-       <div className="card">
-         <button onClick={() => setCount((count) => count + 1)}>
-           count is {count}
-         </button>
-         <p>
-           Edit <code>src/App.jsx</code> and save to test HMR
-         </p>
-       </div>
-       <p className="read-the-docs">
-         Click on the Vite and React logos to learn more
-       </p>
-     </>
-   )
- }
-
- export default App*/

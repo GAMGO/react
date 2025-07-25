@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 // import date from "../../lesson04_svr/TimeTable.json"
-const API_BASE_URL = "http://localhost:5000/api/TimeTable"
+const API_BASE_URL = "http://localhost:5011/api/TimeTable"
 export default function ScheduleTable() {
   const [schedules, setSchedule] = useState([]);
   const [loading, setLoading] = useState(false); //fetch 실행 중이면 true

@@ -5,6 +5,7 @@ import cors from "cors";
 //Web 프레임워크(서버) 실행을 위한 객체 생성
 const app = express();
 const PORT = 5000;
+const PORT2 = 5011;
 
 app.use(cors()); // 프론트 엔드가 백엔드 접속에 필요
 app.use(json()); // Clinet가 보낸 데이터 수신에 필요
@@ -167,8 +168,8 @@ app.delete("/api/TimeTable/:id", async (req, res) => {
 });
 
 //백엔드 서버 시작
-app.listen(PORT, () => {
-  console.log(`타임테이블용 서버가 포트 ${PORT}에서 실행중.`);
+app.listen(PORT2, () => {
+  console.log(`타임테이블용 서버가 포트 ${PORT2}에서 실행중.`);
 });
 
 
